@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PK Medi Engineering</title>
+  
+  <style>
+    :root {
+      --blue: #0066cc;
+      --green: #00a86b;
+    }
+    
+    * {
+      box-sizing: border-box;
+      font-family: Arial;
+    }
+    
+    body {
+      margin: 0;
+      background: white;
+    }
+    
+    
+    /* LOGIN */
+    
+    #loginPage {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+    }
+    
+    
+    .loginBox {
+      background: white;
+      width: 330px;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    
+    
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 7px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    
+    
+    button {
+      background: var(--green);
+      color: white;
+      border: 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    
+    #app {
+      display: none;
+    }
+    
+    
+    .header {
+      background: var(--blue);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    
+    .menu {
+      background: var(--green);
+      padding: 10px;
+    }
+    
+    
+    .menu button {
+      background: var(--blue);
+      margin: 3px;
+    }
+    
+    
+    .main {
+      padding: 15px;
+    }
+    
+    
+    .page {
+      display: none;
+    }
+    
+    
+    .active {
+      display: block;
+    }
+    
+    
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    
+    
+    .card {
+      background: var(--green);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    
+    
+    .box {
+      border: 2px solid var(--blue);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    
+    th {
+      background: var(--blue);
+      color: white;
+    }
+    
+    
+    td,
+    th {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+  
+</head>
+
+
+<body>
+  
+  
+  <!-- LOGIN -->
+  
+  <div id="loginPage">
+    
+    <div class="loginBox">
+      
+      <h2>PK Medi Engineering</h2>
+      
+      <h3>Login</h3>
+      
+      
+      <input id="username" placeholder="Username">
+      
+      <input id="password" type="password" placeholder="Password">
+      
+      
+      <button onclick="login()">
+        Login
+      </button>
+      
+      
+      <p id="error"></p>
+      
+    </div>
+    
+  </div>
+  
+  
+  
+  
+  
+  <!-- APP -->
+  
+  <div id="app">
+    
+    
+    <div class="header">
+      
+      <b>Biomedical Service System</b>
+      
+      <span id="currentUser"></span>
+      
+    </div>
+    
+    
+    <div class="menu">
+      
+      
+      <button onclick="openPage('dashboard')">
+        Dashboard
+      </button>
+      
+      
+      <button onclick="openPage('machines')">
+        Machines
+      </button>
+      
+      
+      <button onclick="openPage('tools')">
+        Tools
+      </button>
+      
+      
+      <button onclick="openPage('parts')">
+        Parts
+      </button>
+      
+      
+      <button onclick="openPage('history')">
+        History
+      </button>
+      
+      
+      <button onclick="openPage('users')">
+        Users
+      </button>
+
+      <button onclick="openPage('complaintLog')">
+        Complaint Log
+      </button>
+
+      <button onclick="openPage('installation')">
+        Installation
+      </button>
+      
+      
+    </div>
+    
+    
+    
+    <div class="main">
+      
+      
+      <div id="dashboard" class="page active">
+        
+        
+        <h2>Live Dashboard</h2>
+        
+        
+        <div class="cards">
+          
+          
+          <div class="card">
+            <h2 id="machineTotal">0</h2>
+            Machines
+          </div>
+          
+          
+          <div class="card">
+            <h2 id="toolTotal">0</h2>
+            Tools
+          </div>
+          
+          
+          <div class="card">
+            <h2 id="partTotal">0</h2>
+            Parts
+          </div>
+
+          <div class="card">
+            <h2 id="resolvedComplaintTotal">0</h2>
+            Complaints Resolved
+          </div>
+          
+          
+        </div>
+        
+        
+      </div>
+      
+<!-- USERS PAGE -->
+
+
+<div id="users" class="page">
+
+
+<h2>User Management</h2>
+
+
+<div class="box">
+
+
+<input id="userName" placeholder="Engineer Name">
+
+
+<input id="userPassword" placeholder="Password">
+
+
+<button onclick="addUser()">
+
+Add Engineer
+
+</button>
+
+
+</div>
+
+
+
+<div class="box">
+
+
+<table>
+
+
+<tr>
+
+<th>Engineer</th>
+
+</tr>
+
+
+<tbody id="userList"></tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- MACHINES PAGE -->
+
+
+<div id="machines" class="page">
+
+
+<h2>Machine Entry</h2>
+
+
+
+<div class="box">
+
+
+<input id="machineName" placeholder="Machine Name">
+
+
+<input id="customer" placeholder="Hospital / Customer">
+
+
+<select id="engineerSelect">
+
+<option>
+Select Engineer
+</option>
+
+
+</select>
+
+
+
+<input id="receiveDate" type="date">
+
+
+<textarea id="complaint" placeholder="Complaint"></textarea>
+
+
+
+<button onclick="addMachine()">
+
+Add Machine
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="box">
+
+
+<table>
+
+
+<tr>
+
+<th>Machine</th>
+<th>Engineer</th>
+<th>Date</th>
+<th>Status</th>
+
+</tr>
+
+
+<tbody id="machineList"></tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- TOOLS PAGE -->
+
+
+<div id="tools" class="page">
+
+
+<h2>Tools</h2>
+
+
+<div class="box">
+
+
+<input id="toolName" placeholder="Tool Name">
+
+
+<input id="toolQty" type="number" placeholder="Quantity">
+
+
+<button onclick="addTool()">
+
+Add Tool
+
+</button>
+
+
+</div>
+
+
+<table>
+
+
+<tr>
+
+<th>Tool</th>
+<th>Total</th>
+<th>Available</th>
+
+</tr>
+
+
+<tbody id="toolList"></tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+<!-- PARTS PAGE -->
+
+
+<div id="parts" class="page">
+
+
+<h2>Parts</h2>
+
+
+<div class="box">
+
+
+<input id="partName" placeholder="Part Name">
+
+
+<input id="partNo" placeholder="Part Number">
+
+
+<input id="partQty" type="number" placeholder="Quantity">
+
+
+<button onclick="addPart()">
+
+Add Part
+
+</button>
+
+
+</div>
+
+
+<table>
+
+
+<tr>
+
+<th>Part</th>
+<th>No</th>
+<th>Stock</th>
+
+</tr>
+
+
+<tbody id="partList"></tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+<!-- HISTORY PAGE -->
+
+
+<div id="history" class="page">
+
+
+<h2>History</h2>
+
+
+<h3>Machine History</h3>
+
+
+<table>
+
+<tr>
+
+<th>Machine</th>
+<th>Engineer</th>
+<th>Receive</th>
+<th>Delivery</th>
+
+</tr>
+
+
+<tbody id="machineHistory"></tbody>
+
+
+</table>
+
+
+
+<h3>Tool Issue History</h3>
+
+
+<table>
+
+<tr>
+
+<th>Tool</th>
+<th>Engineer</th>
+<th>Date</th>
+
+</tr>
+
+
+<tbody id="toolHistory"></tbody>
+
+
+</table>
+
+
+
+
+<h3>Used Parts History</h3>
+
+
+<table>
+
+<tr>
+
+<th>Part</th>
+<th>Machine</th>
+<th>Engineer</th>
+<th>Date</th>
+
+</tr>
+
+
+<tbody id="partHistory"></tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+// DATABASE
+
+
+let admin={
+
+username:"admin1",
+
+password:"218196"
+
+};
+
+
+let users=[];
+
+let machines=[];
+
+let machineHistory=[];
+
+
+let tools=[];
+
+let toolIssueHistory=[];
+
+
+let parts=[];
+
+let usedPartHistory=[];
+
+// LOGIN
+
+function login(){
+
+let u=document.getElementById("username").value;
+
+let p=document.getElementById("password").value;
+
+
+if(u===admin.username && p===admin.password){
+
+openApp(u);
+
+}
+
+else{
+
+
+let user=users.find(function(x){
+
+return x.name===u && x.password===p;
+
+});
+
+
+if(user){
+
+openApp(user.name);
+
+}
+
+else{
+
+document.getElementById("error").innerHTML=
+"Wrong Username or Password";
+
+}
+
+
+}
+
+
+}
+
+
+
+function openApp(name){
+
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("app").style.display="block";
+
+document.getElementById("currentUser").innerHTML=name;
+
+if(name!=="admin1"){
+let userBtn=document.querySelector("button[onclick=\"openPage('users')\"]");
+if(userBtn) userBtn.style.display="none";
+}
+
+}
+
+
+
+
+
+// PAGE CHANGE
+
+
+function openPage(id){
+
+// Only admin can access Users page
+if(id==="users" && document.getElementById("currentUser").innerHTML!=="admin1"){
+alert("Only Admin can access User Management");
+return;
+}
+
+document.querySelectorAll(".page").forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+
+document.getElementById(id).classList.add("active");
+
+}
+
+
+
+
+// ADD USER
+
+
+function addUser(){
+
+let name=document.getElementById("userName").value;
+
+let pass=document.getElementById("userPassword").value;
+
+
+
+if(name && pass){
+
+
+users.push({
+
+name:name,
+
+password:pass
+
+});
+
+
+showUsers();
+
+updateEngineer();
+
+
+}
+
+}
+
+
+
+
+
+function showUsers(){
+
+
+let html="";
+
+
+users.forEach(function(u){
+
+
+html+=`
+
+<tr>
+
+<td>${u.name}</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("userList").innerHTML=html;
+
+
+}
+
+
+
+
+function updateEngineer(){
+
+
+let html="<option>Select Engineer</option>";
+
+
+users.forEach(function(u){
+
+
+html+=`
+
+<option>${u.name}</option>
+
+`;
+
+});
+
+
+document.getElementById("engineerSelect").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+// MACHINE ADD
+
+
+function addMachine(){
+
+
+let m={
+
+
+name:machineName.value,
+
+customer:customer.value,
+
+engineer:engineerSelect.value,
+
+receive:receiveDate.value,
+
+complaint:complaint.value,
+
+status:"Received"
+
+};
+
+
+machines.push(m);
+
+
+showMachines();
+
+
+updateDashboard();
+
+
+}
+
+
+
+
+
+
+function showMachines(){
+
+
+let html="";
+
+
+machines.forEach(function(m,i){
+
+
+html+=`
+
+<tr>
+
+<td>${m.name}</td>
+
+<td>${m.engineer}</td>
+
+<td>${m.receive}</td>
+
+<td>
+
+<select onchange="changeStatus(${i},this.value)">
+
+
+<option>${m.status}</option>
+
+<option>Working</option>
+
+<option>Testing</option>
+
+<option>Ready</option>
+
+<option>Delivering</option>
+
+<option>Delivered</option>
+
+
+</select>
+
+
+</td>
+
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("machineList").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+function changeStatus(i,status){
+
+
+machines[i].status=status;
+
+
+
+if(status==="Delivered"){
+
+
+machines[i].delivery=
+new Date().toISOString().split("T")[0];
+
+
+machineHistory.push(machines[i]);
+
+
+machines.splice(i,1);
+
+
+showMachineHistory();
+
+
+}
+
+
+
+showMachines();
+
+updateDashboard();
+
+
+}
+
+
+
+
+
+
+
+function showMachineHistory(){
+
+
+let html="";
+
+
+machineHistory.forEach(function(m){
+
+
+html+=`
+
+<tr>
+
+<td>${m.name}</td>
+
+<td>${m.engineer}</td>
+
+<td>${m.receive}</td>
+
+<td>${m.delivery}</td>
+
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("machineHistory").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+// TOOLS
+
+
+function addTool(){
+
+
+let t={
+
+
+name:toolName.value,
+
+total:Number(toolQty.value),
+
+available:Number(toolQty.value)
+
+
+};
+
+
+tools.push(t);
+
+
+showTools();
+
+updateDashboard();
+
+
+}
+
+
+
+
+
+function showTools(){
+
+
+let html="";
+
+
+tools.forEach(function(t,i){
+
+
+html+=`
+
+<tr>
+
+<td>${t.name}</td>
+
+<td>${t.total}</td>
+
+<td>${t.available}</td>
+
+<td>
+
+<button onclick="issueTool(${i})">
+
+Issue
+
+</button>
+
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("toolList").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+function issueTool(i){
+
+
+let engineer=prompt("Engineer Name");
+
+
+if(engineer && tools[i].available>0){
+
+
+tools[i].available--;
+
+
+
+toolIssueHistory.push({
+
+tool:tools[i].name,
+
+engineer:engineer,
+
+date:new Date().toISOString().split("T")[0]
+
+});
+
+
+showTools();
+
+showToolHistory();
+
+
+}
+
+
+}
+
+
+
+
+function showToolHistory(){
+
+
+let html="";
+
+
+toolIssueHistory.forEach(function(t){
+
+
+html+=`
+
+<tr>
+
+<td>${t.tool}</td>
+
+<td>${t.engineer}</td>
+
+<td>${t.date}</td>
+
+</tr>
+
+
+`;
+
+});
+
+
+document.getElementById("toolHistory").innerHTML=html;
+
+
+}
+
+// ================= PARTS SYSTEM =================
+
+
+function addPart(){
+
+
+let p={
+
+
+name:partName.value,
+
+number:partNo.value,
+
+stock:Number(partQty.value)
+
+
+};
+
+
+
+parts.push(p);
+
+
+showParts();
+
+
+updateDashboard();
+
+
+}
+
+
+
+
+
+
+
+function showParts(){
+
+
+let html="";
+
+
+parts.forEach(function(p,i){
+
+
+
+html+=`
+
+<tr>
+
+<td>${p.name}</td>
+
+<td>${p.number}</td>
+
+<td>${p.stock}</td>
+
+<td>
+
+<button onclick="usePart(${i})">
+
+USE
+
+</button>
+
+</td>
+
+
+</tr>
+
+`;
+
+
+
+});
+
+
+document.getElementById("partList").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+function usePart(i){
+
+
+
+let machine=prompt("Machine Name");
+
+let engineer=prompt("Engineer Name");
+
+
+
+if(machine && engineer && parts[i].stock>0){
+
+
+
+parts[i].stock--;
+
+
+
+usedPartHistory.push({
+
+part:parts[i].name,
+
+machine:machine,
+
+engineer:engineer,
+
+date:new Date().toISOString().split("T")[0]
+
+});
+
+
+
+showParts();
+
+
+showPartHistory();
+
+
+updateDashboard();
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+function showPartHistory(){
+
+
+let html="";
+
+
+usedPartHistory.forEach(function(p){
+
+
+html+=`
+
+<tr>
+
+
+<td>${p.part}</td>
+
+<td>${p.machine}</td>
+
+<td>${p.engineer}</td>
+
+<td>${p.date}</td>
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+document.getElementById("partHistory").innerHTML=html;
+
+
+}
+
+
+
+
+
+
+
+
+// ================= DASHBOARD =================
+
+
+
+function updateDashboard(){
+
+
+
+document.getElementById("machineTotal").innerHTML=
+machines.length;
+
+
+
+document.getElementById("toolTotal").innerHTML=
+tools.length;
+
+
+
+document.getElementById("partTotal").innerHTML=
+parts.length;
+
+
+
+}
+
+
+
+
+// FIRST LOAD
+
+
+updateDashboard();
+
+
+
+
+</script>
+
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDGB8-3pF2GYbrJCONM_0R2H5xCCTJPAn4",
+  authDomain: "poultry360-489c3.firebaseapp.com",
+  projectId: "poultry360-489c3",
+  storageBucket: "poultry360-489c3.firebasestorage.app",
+  messagingSenderId: "233201667115",
+  appId: "1:233201667115:web:1088923af65d6be8e5ae6e",
+  databaseURL: "https://poultry360-489c3-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+window.firebaseDatabase = database;
+window.firebaseRef = ref;
+window.firebaseSet = set;
+window.firebasePush = push;
+window.firebaseOnValue = onValue;
+
+console.log("Firebase Connected");
+</script>
+
+
+<script type="module">
+import { getDatabase, ref, set, push, onValue } 
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+const db = window.firebaseDatabase || getDatabase();
+
+function save(path, data){
+  return set(ref(db, path), data);
+}
+
+function load(path, callback){
+  onValue(ref(db, path), snap=>{
+    callback(snap.val() || {});
+  });
+}
+
+// Firebase based user add
+window.addUser = function(){
+  let name=document.getElementById("userName").value;
+  let pass=document.getElementById("userPassword").value;
+
+  if(name && pass){
+    let id=push(ref(db,"users")).key;
+    set(ref(db,"users/"+id),{
+      name:name,
+      password:pass
+    });
+  }
+};
+
+// Firebase based machine add
+window.addMachine = function(){
+  let m={
+    name:machineName.value,
+    customer:customer.value,
+    engineer:engineerSelect.value,
+    receive:receiveDate.value,
+    complaint:complaint.value,
+    status:"Received"
+  };
+
+  let id=push(ref(db,"machines")).key;
+  set(ref(db,"machines/"+id),m);
+};
+
+// Firebase based tool add
+window.addTool = function(){
+  let t={
+    name:toolName.value,
+    total:Number(toolQty.value),
+    available:Number(toolQty.value)
+  };
+
+  let id=push(ref(db,"tools")).key;
+  set(ref(db,"tools/"+id),t);
+};
+
+// Firebase based part add
+window.addPart = function(){
+  let p={
+    name:partName.value,
+    number:partNo.value,
+    stock:Number(partQty.value)
+  };
+
+  let id=push(ref(db,"parts")).key;
+  set(ref(db,"parts/"+id),p);
+};
+
+
+// Load Firebase data when page opens
+load("users", data=>{
+  users=Object.values(data);
+  showUsers();
+  updateEngineer();
+});
+
+load("machines", data=>{
+  machines=Object.values(data);
+  showMachines();
+  updateDashboard();
+});
+
+load("tools", data=>{
+  tools=Object.values(data);
+  showTools();
+  updateDashboard();
+});
+
+load("parts", data=>{
+  parts=Object.values(data);
+  showParts();
+  updateDashboard();
+});
+
+</script>
+
+
+<!-- ADDITIONAL FEATURES: Complaint Log & Equipment Installation -->
+<script>
+function openExtraPage(id){
+  openPage(id);
+}
+</script>
+
+<div id="complaintLog" class="page">
+<h2>Complaint Log</h2>
+<div class="box">
+<input id="complaintSite" placeholder="Site Name">
+<textarea id="complaintDetails" placeholder="Complaint Details"></textarea>
+<input id="complaintDate" type="date">
+<select id="complaintEngineer"><option>Select Engineer</option></select>
+<select id="complaintStatus"><option>Pending</option><option>Resolved</option></select>
+<button onclick="addComplaintLog()">Save Complaint</button>
+</div>
+<div class="box">
+<table><tr><th>Site</th><th>Date</th><th>Engineer</th><th>Status</th></tr><tbody id="complaintList"></tbody></table>
+</div>
+</div>
+
+<div id="installation" class="page">
+<h2>Equipment Installation Report</h2>
+<div class="box">
+<input id="installEquipment" placeholder="Equipment Name">
+<input id="installSite" placeholder="Site Name">
+<select id="installEngineer"><option>Select Engineer</option></select>
+<input id="installDate" type="date">
+<select id="installStatus">
+<option>In Progress</option>
+<option>Testing</option>
+<option>Handed Over</option>
+</select>
+<button onclick="addInstallation()">Save Installation</button>
+</div>
+<div class="box">
+<table><tr><th>Equipment</th><th>Site</th><th>Engineer</th><th>Status</th><th>Date</th></tr><tbody id="installationList"></tbody></table>
+</div>
+</div>
+
+<script type="module">
+import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+const extraDB = window.firebaseDatabase || getDatabase();
+
+window.addComplaintLog=function(){
+ let c={site:complaintSite.value,details:complaintDetails.value,date:complaintDate.value,engineer:complaintEngineer.value,status:complaintStatus.value};
+ set(ref(extraDB,"complaints/"+push(ref(extraDB,"complaints")).key),c);
+};
+
+window.addInstallation=function(){
+ let i={equipment:installEquipment.value,site:installSite.value,engineer:installEngineer.value,date:installDate.value,status:installStatus.value};
+ set(ref(extraDB,"installations/"+push(ref(extraDB,"installations")).key),i);
+};
+
+function fillEngineerDrops(){
+ let h="<option>Select Engineer</option>";
+ users.forEach(u=>h+="<option>"+u.name+"</option>");
+ if(document.getElementById("complaintEngineer")) complaintEngineer.innerHTML=h;
+ if(document.getElementById("installEngineer")) installEngineer.innerHTML=h;
+}
+setInterval(fillEngineerDrops,1000);
+
+onValue(ref(extraDB,"complaints"),s=>{
+ let h=""; let count=0;
+ Object.values(s.val()||{}).forEach(c=>{if(c.status==="Resolved")count++;h+=`<tr><td>${c.site}</td><td>${c.date}</td><td>${c.engineer}</td><td>${c.status}</td></tr>`;});
+ if(document.getElementById("complaintList")) complaintList.innerHTML=h;
+ let card=document.getElementById("resolvedComplaintTotal"); if(card) card.innerHTML=count;
+});
+
+onValue(ref(extraDB,"installations"),s=>{
+ let h="";
+ Object.values(s.val()||{}).forEach(i=>h+=`<tr><td>${i.equipment}</td><td>${i.site}</td><td>${i.engineer}</td><td>${i.status}</td><td>${i.date}</td></tr>`);
+ if(document.getElementById("installationList")) installationList.innerHTML=h;
+});
+</script>
+
+</body>
+
+</html>
